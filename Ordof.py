@@ -3,6 +3,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import showinfo
+from tkinter import filedialog
 import time
 import Config
 
@@ -28,10 +29,26 @@ pack_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYT
 back_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Back_logo.png")
 back_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Back_logo_max.png")
 
+browser_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Browser_logo.png")
+browser_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Browser_logo_max.png")
+
 tri_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Tri_logo.png")
 tri_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Tri_logo_max.png")
 extract_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Extract_logo.png")
 extract_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Extract_logo_max.png")
+
+ext_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Ext_logo.png")
+ext_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Ext_logo_max.png")
+name_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Name_logo.png")
+name_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Name_logo_max.png")
+all_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/All_logo.png")
+all_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/All_logo_max.png")
+
+
+
+
+
+
 
 
 # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,13 +164,105 @@ def WD_rename(event):
     icon_back = can_back.create_image(20, 20, image=back_img)
     can_back.tag_bind(icon_back, "<Enter>", enter_back)
     can_back.tag_bind(icon_back, "<Leave>", leave_back)
-    can_back.tag_bind(icon_back, "<Button-1>", clic_back)
+    can_back.tag_bind(icon_back, "<Button-1>", clic_back)    
 
+    # PATH_ENTRY __________________________________________________________________________________________________________________________    
+    frame_entry = Frame(wd, bg=Config.bg_color)
 
+    def REP():
+        rep_find = filedialog.askdirectory(title="Choisir le répertoire contenant les fichiers")
+        path.delete(0, END)
+        path.insert(END, rep_find)
+        
+    text_path = Label(frame_entry, text="Chemin : ", font=(Config.text_caly, Config.text_size), bg=Config.bg_color, fg=Config.fg_color)
+    path = Entry(frame_entry, width=Config.entry_rep_lrg)
+    
+    text_path.grid(row=0, column=0,padx=20, sticky=W)
+    path.grid(row=0, column=1,padx=20, sticky=W)
+    
+    can_browser = Canvas(wd, bg=Config.bg_color, width=Config.can_litle_bp_size, height=Config.can_litle_bp_size, highlightthickness=0)
+    can_browser.pack()
+    can_browser.place(x= 580, y=135)
 
+    def enter_browser(event):
+        can_browser.itemconfig(icon_browser, image=browser_img_max)
+    def leave_browser(event):
+        can_browser.itemconfig(icon_browser, image=browser_img)
+    def clic_browser(event):
+        REP()
 
+    icon_browser = can_browser.create_image(37.5,37.5, image=browser_img)
+    can_browser.tag_bind(icon_browser, "<Enter>",enter_browser)    
+    can_browser.tag_bind(icon_browser, "<Leave>",leave_browser)
+    can_browser.tag_bind(icon_browser, "<Button-1>",clic_browser)
+   
+    frame_entry.pack(side=TOP)
+    frame_entry.place(x=0, y=160) 
+    
 
+    # TYPE __________________________________________________________________________________________________________________________    
+    frame_type = Frame(wd, bg=Config.bg_color)
 
+    text_type = Label(frame_type, text="Sélection : ", font=(Config.text_caly, Config.text_size), bg=Config.bg_color, fg=Config.fg_color)
+    text_ext = Label(frame_type, text="Extension", font=(Config.text_caly, Config.text_size), bg=Config.bg_color, fg=Config.bg_color)
+    text_name = Label(frame_type, text="Nom", font=(Config.text_caly, Config.text_size), bg=Config.bg_color, fg=Config.bg_color)
+    text_all = Label(frame_type, text="Tous", font=(Config.text_caly, Config.text_size), bg=Config.bg_color, fg=Config.bg_color)
+    
+    can_ext = Canvas(frame_type, bg=Config.bg_color, width=Config.can_litle_bp_size, height=Config.can_litle_bp_size, highlightthickness=0)
+    can_name = Canvas(frame_type, bg=Config.bg_color, width=Config.can_litle_bp_size, height=Config.can_litle_bp_size, highlightthickness=0)
+    can_all = Canvas(frame_type, bg=Config.bg_color, width=Config.can_litle_bp_size, height=Config.can_litle_bp_size, highlightthickness=0)
+   
+    def enter_ext(event):
+        can_ext.itemconfig(icon_ext, image=ext_img_max)
+        text_ext.config(fg=Config.fg_color)
+    def leave_ext(event):
+        can_ext.itemconfig(icon_ext, image=ext_img)
+        text_ext.config(fg=Config.bg_color)
+
+    def enter_name(event):
+        can_name.itemconfig(icon_name, image=name_img_max)
+        text_name.config(fg=Config.fg_color)
+    def leave_name(event):
+        can_name.itemconfig(icon_name, image=name_img)
+        text_name.config(fg=Config.bg_color)
+
+    def enter_all(event):
+        can_all.itemconfig(icon_all, image=all_img_max)
+        text_all.config(fg=Config.fg_color)
+    def leave_all(event):
+        can_all.itemconfig(icon_all, image=all_img)
+        text_all.config(fg=Config.bg_color)
+
+    icon_ext = can_ext.create_image(37.5,37.5, image=ext_img)
+    can_ext.tag_bind(icon_ext, "<Enter>", enter_ext)
+    can_ext.tag_bind(icon_ext, "<Leave>", leave_ext)
+    #can_ext.tag_bind(icon_ext, "<Button-1>", clic_ext)
+
+    icon_name = can_name.create_image(37.5,37.5, image=name_img)
+    can_name.tag_bind(icon_name, "<Enter>", enter_name)
+    can_name.tag_bind(icon_name, "<Leave>", leave_name)
+    #can_name.tag_bind(icon_name, "<Button-1>", clic_name)
+
+    icon_all = can_all.create_image(37.5,37.5, image=all_img)
+    can_all.tag_bind(icon_all, "<Enter>", enter_all)
+    can_all.tag_bind(icon_all, "<Leave>", leave_all)
+    #can_all.tag_bind(icon_all, "<Button-1>", clic_all)
+
+    text_type.grid(row=0, column=0, padx=20, sticky=W)
+    text_ext.grid(row=1, column=1, padx=20, sticky=W)
+    text_name.grid(row=1, column=2, padx=45, sticky=W)
+    text_all.grid(row=1, column=3, padx=45, sticky=W)
+
+    can_ext.grid(row=0, column=1, padx=28, sticky=W)
+    can_name.grid(row=0, column=2, padx=28, sticky=W)
+    can_all.grid(row=0, column=3, padx=28, sticky=W)
+
+    frame_type.pack(side=TOP)
+    frame_type.place(x=0, y=240) 
+
+    # rep = path.get()
+    
+    
 
 
 
