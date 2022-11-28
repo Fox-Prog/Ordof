@@ -1242,13 +1242,13 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
             msOp = round((tpsOp*1000), 3)
             if tpsOp >= 1:
                 Ntime = "secondes"
-                messagebox.showinfo("Succès", '''{}   Fichiers rennomés avec succès
-                Temps de l'opération : {} {}'''.format(nbrE, tpsOp, Ntime))
+                messagebox.showinfo("Succès", '''{}   {}
+                Temps de l'opération : {} {}'''.format(nbrE, CDT.text_msg_succes(Op), tpsOp, Ntime))
 
             if tpsOp < 1:
                 Ntime = "millisecondes"
-                messagebox.showinfo("Succès", '''{}   Fichiers rennomés avec succès
-                Temps de l'opération : {} {}'''.format(nbrE, msOp, Ntime))
+                messagebox.showinfo("Succès", '''{}   {}
+                Temps de l'opération : {} {}'''.format(nbrE,CDT.text_msg_succes(Op), msOp, Ntime))
 
             Naviguation.nav_menu(back, 0)
 

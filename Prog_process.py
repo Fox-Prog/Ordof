@@ -25,6 +25,7 @@ def ctrl_ext(rep, ext):  # _____________________________________________________
         os.chdir(rep)
         global files_list
         files_list = []
+        all_list = []
         all_list = glob.glob(R_ext)
         for el in all_list:
             nfc = os.path.join(rep, el)
@@ -35,6 +36,17 @@ def ctrl_ext(rep, ext):  # _____________________________________________________
             messagebox.showwarning("Erreur", "Aucun fichiers trouvés avec cette extension")            
         else:
             return True
+
+
+def ctrl_ext_flag(ext_flag): # ___________________________________________________________________________ CTRL EXT FLAG --> _flag+date
+    R_ext = ("*"+ext_flag)
+
+    global files_list
+    files_list = []
+    all_list = []
+    all_list = glob.glob(R_ext)
+    for el in all_list:
+        files_list.append(el)
 
 
 def ctrl_name(rep, name): # ___________________________________________________________________________ CTRL NAME & FILES
@@ -135,8 +147,8 @@ def Init_Op():
     global date_list
     date_list = []
 
-    global ext_list
-    ext_list = []
+    global ext_flag_list
+    ext_flag_list = []
 
     global tps
     tps = time.time()
@@ -145,7 +157,9 @@ def Init_Op():
     err_list = []
 
 
-
+def Init_inter_flag():
+    global date_list
+    date_list = []
 
 
 def Mode_date(JJ,MM,AA, M_date):
@@ -427,31 +441,38 @@ def Tri_ext_name():        # ___________________________________________________
 def Tri_ext_date():        # ___________________________________________________________________________ Tri ext + date
     Init_Op()
 
-    for el in files_list:               # ___ ID
-        Find_date(el, M_date)
-
-
-    print("ext_list = ", ext_list) #################################################
-
-    for date in date_list:              # ___ Create SD
-        txt = str(files_list[date_list.index(date)])
-        split_ext = txt.split(".")
-        try:
-            os.mkdir(SDname+ date+' - '+split_ext[1])
-        except: pass
-
-
-    for el in files_list:               # ___ Copy
+    for el in files_list:               # ___ Recup des flag (type d'extension presente dans le dossier)
         txt = str(el)
         split_ext = txt.split(".")
-        date_copy = Copy_date_element(el, M_date)
-        print("Split_ext = ", split_ext[1]) #################################################
-        try:
-            target=(rep+'/'+SDname+ date_copy+' - '+split_ext[1])
-            shutil.move(rep+'/'+el, target)
-        except:
-            err_list.append(el)
+        ext_flag = ("."+split_ext[1])
 
+        if ext_flag not in ext_flag_list:
+            ext_flag_list.append(ext_flag)
+
+
+    for els in ext_flag_list:              
+        Init_inter_flag()
+
+        ctrl_ext_flag(els)
+
+        for el in files_list:               # ___ ID Date
+            Find_date(el, M_date)
+
+        for date in date_list:              # ___ Create SD
+            try:
+                os.mkdir(SDname+ date+' - '+els[1:])
+            except: pass
+
+        for el in files_list:               # ___ Copy
+            date_copy = Copy_date_element(el, M_date)
+            try:
+                target=(rep+'/'+SDname+ date_copy+' - '+els[1:])
+                shutil.move(rep+'/'+el, target)
+            except:
+                err_list.append(el)
+
+
+        
 
 
 

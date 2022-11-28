@@ -267,3 +267,28 @@ class CDT:
             txt = "Un problème est survenu lors du tri"
 
         return txt   
+
+
+# _____________________________________________ MESSAGE SUCCES _____________________________________________ #
+    
+    def text_msg_succes(Op):
+        if Op == 1:
+            txt = "Fichiers rennomés avec succès"
+        if Op == 2:
+            txt = "Elements extrait avec succès"
+        if Op == 3:
+            txt = "Fichiers triés avec succès"
+        if Op == 4:
+            txt = "Fichiers triés avec succès"
+        if Op == 5:
+            txt = "Fichiers triés avec succès"
+        if Op == 6:
+            txt = "Fichiers triés avec succès"
+        if Op == 7:
+            txt = "Fichiers triés avec succès"
+        if Op == 8:
+            txt = "Fichiers triés avec succès"
+        if Op == 9:
+            txt = "Fichiers triés avec succès"
+
+        return txt   
