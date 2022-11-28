@@ -110,28 +110,69 @@ def ctrl_deg(deg):             # _______________________________________________
         messagebox.showerror("Erreur", "Degré = nombre ou ALL")
 
 
+
+
+
+# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#                                                              TOOLS
+
+
+rep = ""
+ext = ""
+Nname = ""
+SDname = ""
+sep = ""
+name = ""
+M_date = ""
+
+rename_list = []
+
+global target_list
+
+def Init_Op():
+    os.chdir(rep)
+
+    global date_list
+    date_list = []
+
+    global ext_list
+    ext_list = []
+
+    global tps
+    tps = time.time()
+
+    global err_list
+    err_list = []
+
+
+
+
+
+def Mode_date(JJ,MM,AA, M_date):
+    list_mois=['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',]
+
+    if MM in list_mois:
+        MM = str(list_mois.index(MM)).zfill(2)
+
+    if M_date == 1:
+        OD=(AA)
+        return OD
     
+    if M_date == 2:
+        OD=(MM+'-'+AA)
+        return OD
+    
+    if M_date == 3:
+        OD=(JJ+'-'+MM+'-'+AA)
+        return OD
+
+
+
 
 
 
 # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #                                                              RENAME
-
-rep = ""
-ext = ""
-Nname = ""
-sep = ""
-
-rename_list = []
-
-def Init_Op():
-    os.chdir(rep)
-    global tps
-    tps = time.time()
-    global err_list
-    err_list = []
-
-
 
 def Rename_ext():          # ___________________________________________________________________________ Rename ext
     Init_Op()
@@ -173,7 +214,7 @@ def Rename_all():       # ______________________________________________________
             nfc = os.path.join(rep, el)
             split_ext = txt.split(".")
             os.rename(nfc, os.path.join(rep, Nname+sep+str(nbr)+'.'+str(split_ext[1])))
-            # nbr = nbr+1
+            nbr = nbr+1
         except:
             err_list.append(el)
 
@@ -181,6 +222,8 @@ def Rename_all():       # ______________________________________________________
 
 # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #                                                              DEPACK
+
+supp_SD = True
 
 def Depack(deg):
     Init_Op()
@@ -199,10 +242,11 @@ def Depack(deg):
                         pass
                 
                 os.chdir(rep)
-                try:
-                    os.rmdir(rep+'/'+doss)
-                except:
-                    pass
+                if supp_SD == True:
+                    try:
+                        os.rmdir(rep+'/'+doss)
+                    except:
+                        pass
 
 
 
@@ -232,42 +276,210 @@ class Mode_Tri:
         Mode_Tri.T_date_mode = (list(reversed(Mode_Tri.T_date_mode)))
         Mode_Tri.tri_date = Mode_Tri.T_date_mode[0]
 
+
     def Reset():
-        if Mode_Tri.tri_ext == '3':
+        if Mode_Tri.T_ext_mode == ['3', '0']:
             Mode_Tri.T_ext_mode = (list(reversed(Mode_Tri.T_ext_mode)))
             Mode_Tri.tri_ext = 0
-        if Mode_Tri.tri_name == '5':
+        if Mode_Tri.T_name_mode == ['5', '0']:
             Mode_Tri.T_name_mode = (list(reversed(Mode_Tri.T_name_mode)))
             Mode_Tri.tri_name = 0
-        if Mode_Tri.tri_date == '7':
+        if Mode_Tri.T_date_mode == ['7', '0']:
             Mode_Tri.T_date_mode = (list(reversed(Mode_Tri.T_date_mode)))
             Mode_Tri.tri_date = 0
 
 
 
+
+
+
+
+def Find_date(el, M_date):
+    im = open(el, 'rb')
+    try:                        # >>> Tentative d'extraction date de prise de vue dans la méta-donnée
+        dateNF=str((exifread.process_file(im)['EXIF DateTimeOriginal']))
+        JJ=(dateNF[8:-9])
+        MM=(dateNF[5:-12])
+        AA=(dateNF[:-15])
+        OD = Mode_date(JJ, MM, AA, M_date)
+        date_list.append(OD)
+    except:                     # >>> Si méta-donnée inexistante, extraction de la date de modification du fichier
+        dateNF=str((time.ctime(os.path.getmtime(el))))
+        JJ=(dateNF[8:-14])
+        MM=(dateNF[4:-17])
+        AA=(dateNF[20:])
+        OD = Mode_date(JJ, MM, AA, M_date)
+        date_list.append(OD)
+    im.close()
+
+
+
+def Copy_date_element(el, M_date):
+    im = open(el, 'rb')
+    try:                        # >>> Tentative d'extraction date de prise de vue dans la méta-donnée
+        dateNF=str((exifread.process_file(im)['EXIF DateTimeOriginal']))
+        JJ=(dateNF[8:-9])
+        MM=(dateNF[5:-12])
+        AA=(dateNF[:-15])
+        OD = Mode_date(JJ, MM, AA, M_date)
+        date_copy = str(OD)
+    except:                     # >>> Si méta-donnée inexistante, extraction de la date de modification du fichier
+        dateNF=str((time.ctime(os.path.getmtime(el))))
+        JJ=(dateNF[8:-14])
+        MM=(dateNF[4:-17])
+        AA=(dateNF[20:])
+        OD = Mode_date(JJ, MM, AA, M_date)
+        date_copy = str(OD)
+    im.close()
+
+    return date_copy
+
+
+
+
+
+
 def Tri_ext():        # ___________________________________________________________________________ Tri ext
     Init_Op()
-    
+    for el in files_list:   # ___ Create SD
+        txt = str(el)
+        split_ext = txt.split(".")
+        try:
+            os.mkdir(SDname+str(split_ext[1]))
+        except: pass
+
+    for el in files_list:   # ___ Copy
+        txt = str(el)
+        split_ext = txt.split(".")
+        try:
+            target = (rep+'/'+SDname+str(split_ext[1]))
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+
+
 
 
 def Tri_name():        # ___________________________________________________________________________ Tri name
-    print("tri name")
+    Init_Op() 
+    try:    # ___ Create SD
+        os.mkdir(SDname+name)
+    except: pass
+    
+    for el in files_list:   # ___ Copy
+        try:
+            target = (rep+'/'+SDname+name)
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+
 
 
 def Tri_date():        # ___________________________________________________________________________ Tri date
-    print("tri date")
+    Init_Op()
+
+    for el in files_list:
+        Find_date(el, M_date)
+
+    for date in date_list:        # ___ Create SD
+        try:
+            os.mkdir(SDname+date) 
+        except:
+            pass
 
 
-def Tri_ext_name():        # ___________________________________________________________________________ Tri ext + name
-    print("tri ext name")
+    for el in files_list:       # ___ Copy
+        date_copy = Copy_date_element(el, M_date)
+        try:
+            target=(rep+'/'+SDname+date_copy)
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+    
+
+    
+
+
+
+
+def Tri_ext_name():        # ___________________________________________________________________________ Tri ext + nom
+    Init_Op()
+    for el in files_list:   # ___ Create SD
+        txt = str(el)
+        split_ext = txt.split(".")
+        try:
+            os.mkdir(SDname+name+' - '+str(split_ext[1]))
+        except: pass
+
+    for el in files_list:   # ___ Copy
+        txt = str(el)
+        split_ext = txt.split(".")
+        try:
+            target = (rep+'/'+SDname+name+' - '+str(split_ext[1]))
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+
+
+
 
 
 def Tri_ext_date():        # ___________________________________________________________________________ Tri ext + date
-    print("tri ext date")
+    Init_Op()
+
+    for el in files_list:               # ___ ID
+        Find_date(el, M_date)
+
+
+    print("ext_list = ", ext_list) #################################################
+
+    for date in date_list:              # ___ Create SD
+        txt = str(files_list[date_list.index(date)])
+        split_ext = txt.split(".")
+        try:
+            os.mkdir(SDname+ date+' - '+split_ext[1])
+        except: pass
+
+
+    for el in files_list:               # ___ Copy
+        txt = str(el)
+        split_ext = txt.split(".")
+        date_copy = Copy_date_element(el, M_date)
+        print("Split_ext = ", split_ext[1]) #################################################
+        try:
+            target=(rep+'/'+SDname+ date_copy+' - '+split_ext[1])
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+
+
+
 
 
 def Tri_name_date():        # ___________________________________________________________________________ Tri name + date
-    print("tri name date")
+    Init_Op()
+
+    for el in files_list:
+        Find_date(el, M_date)
+
+    for date in date_list:        # ___ Create SD
+        try:
+            os.mkdir(SDname+name+' - '+date) 
+        except: pass
+
+    
+    for el in files_list:       # ___ Copy
+        date_copy = Copy_date_element(el, M_date)
+        try:
+            target=(rep+'/'+SDname+name+' - '+date_copy)
+            shutil.move(rep+'/'+el, target)
+        except:
+            err_list.append(el)
+
+
+
+
 
 def Tri_ext_name_date():        # ___________________________________________________________________________ Tri ext + name + date
     print("tri ext name date")
+

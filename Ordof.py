@@ -1,5 +1,5 @@
 # v1.0 >>> Start interface graphique
-# A faire : Renommage par date
+# A faire : Renommage par date // Info Tri
 
 from tkinter import *
 from tkinter import ttk
@@ -69,7 +69,7 @@ class Anim:
         
 
 
-    def Rename_Mode(event, can_p, can_s1, can_s2):
+    def Choice_menu_mode(event, can_p, can_s1, can_s2):
         can_s1.config(highlightthickness=0)
         can_s2.config(highlightthickness=0)
         can_p.config(highlightthickness=1)
@@ -96,6 +96,7 @@ class Anim:
         cadre = Anim.cadre_date[0]
         can.config(highlightthickness=cadre)
 
+
     def Reset_Tri():
         if Anim.cadre_ext == ['1', '0']:
             Anim.cadre_ext = (list(reversed(Anim.cadre_ext)))
@@ -103,6 +104,7 @@ class Anim:
             Anim.cadre_name = (list(reversed(Anim.cadre_name)))
         if Anim.cadre_date == ['1', '0']:
             Anim.cadre_date = (list(reversed(Anim.cadre_date)))
+        
 
 
 class BP_Strd:
@@ -271,7 +273,7 @@ def WD_rename(event):
     can_all = Canvas(frame_type, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)      
 
     def EXT(event):
-        Anim.Rename_Mode(event, can_ext, can_name, can_all)
+        Anim.Choice_menu_mode(event, can_ext, can_name, can_all)
         try:
             frame_menu_name.pack_forget()
             frame_menu_ext.pack()
@@ -283,7 +285,7 @@ def WD_rename(event):
         
 
     def NAME(event):
-        Anim.Rename_Mode(event, can_name, can_ext, can_all)
+        Anim.Choice_menu_mode(event, can_name, can_ext, can_all)
         try:
             frame_menu_ext.pack_forget()
             frame_menu_name.pack()
@@ -294,7 +296,7 @@ def WD_rename(event):
         
 
     def ALL(event):
-        Anim.Rename_Mode(event, can_all, can_name, can_ext)
+        Anim.Choice_menu_mode(event, can_all, can_name, can_ext)
         try:
             frame_menu_name.pack_forget()
             frame_menu_ext.pack_forget()
@@ -393,6 +395,7 @@ def WD_rename(event):
 
 
     def ctrl_mode(rep):                   # CTRL entry ext __________________________________________________________________
+        R_mode = 0
         try:                    
             R_mode = rm_mode
         except:
@@ -631,87 +634,128 @@ def WD_tri(event):
         Get_final_num(number_tri, mode, rep)
 
 
-
-
     def Get_final_num(number_tri, mode, rep):
         if number_tri == 3:                         # ___ Ext uniquement
             if mode == 1:
                 try:
+                    frame_menu_name.pack_forget()
                     frame_sm_date.pack_forget()
                 except: pass
+
             elif mode == 2:
+                csd = ctrl_SDname()
                 cd = ctrl_isFiles(rep)
-                if cd == True:
+                if cd == True and csd == True:
                     Confirm(3)
                 
-
+            
+        
         if number_tri == 5:                         # ___ Nom uniquement
             if mode == 1:
                 try:
+                    frame_menu_name.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                     frame_sm_date.pack_forget()
                 except: pass
+
             elif mode == 2:
-                cd = ctrl_isFiles(rep)
-                if cd == True:
+                csd = ctrl_SDname()
+                cn = ctrl_name(rep)
+                if cn == True and csd == True:
                     Confirm(4)
+
+
+
 
         if number_tri == 7:                         # ___ Date uniquement
             if mode == 1:
                 try:
+                    frame_menu_name.pack_forget()
                     frame_sm_date.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                 except: pass
+
             elif mode == 2:
+                cmd = ctrl_mode_date()
+                csd = ctrl_SDname()
                 cd = ctrl_isFiles(rep)
-                if cd == True:
+                if cd == True and csd == True and cmd == True:
                     Confirm(5)
+
+
 
         if number_tri == 8:                         # ___ Ext + Nom
             if mode == 1:
                 try:
+                    frame_menu_name.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                     frame_sm_date.pack_forget()
                 except: pass
+
             elif mode == 2:
-                cd = ctrl_isFiles(rep)
-                if cd == True:
+                csd = ctrl_SDname()
+                cn = ctrl_name(rep)
+                if cn == True and csd == True:
                     Confirm(6)
+
+
 
         if number_tri == 10:                         # ___ Ext + Date
             if mode == 1:
                 try:
+                    frame_menu_name.pack_forget()
                     frame_sm_date.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                 except: pass
+
             elif mode == 2:
+                cmd = ctrl_mode_date()
+                csd = ctrl_SDname()
                 cd = ctrl_isFiles(rep)
-                if cd == True:
+                if cd == True and csd == True and cmd == True:
                     Confirm(7)
+
+
+
 
         if number_tri == 12:                         # ___ Nom + Date
             if mode == 1:
                 try:
+                    frame_menu_name.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                     frame_sm_date.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                 except: pass
+
             elif mode == 2:
-                cd = ctrl_isFiles(rep)
-                if cd == True:
+                cmd = ctrl_mode_date()
+                csd = ctrl_SDname()
+                cn = ctrl_name(rep)
+                if cn == True and csd == True and cmd == True:
                     Confirm(8)
+
+
 
         if number_tri == 15:                         # ___ Ext + Nom + Date
             if mode == 1:
                 try:
+                    frame_menu_name.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                     frame_sm_date.pack(anchor='nw',pady=CDT.sous_menu_mrg_y)
                 except: pass
+
             elif mode == 2:
-                cd = ctrl_isFiles(rep)
-                if cd == True:
+                cmd = ctrl_mode_date()
+                csd = ctrl_SDname()
+                cn = ctrl_name(rep)
+                if cn == True and csd == True and cmd == True:
                     Confirm(9)
+
+
 
         if number_tri == 0:
             if mode == 1:
                 try:
+                    frame_menu_name.pack_forget()
                     frame_sm_date.pack_forget()
                 except: pass
+
             elif mode == 2:
-                messagebox.showerror("Information manquante", "Veuillez choisir un  mode de tri")
+                messagebox.showerror("Information manquante", "Veuillez choisir un mode de tri")
+                
 
 
     def EXT(event):
@@ -738,8 +782,8 @@ def WD_tri(event):
     Anim.BP(can_name, icon_name, ICON.name_img_max, ICON.name_img, text_name)
     can_name.tag_bind(icon_name, "<Button-1>",NAME)
 
-    icon_all = can_date.create_image(37.5,37.5, image=ICON.all_img)
-    Anim.BP(can_date, icon_all, ICON.all_img_max, ICON.all_img, text_all)
+    icon_all = can_date.create_image(37.5,37.5, image=ICON.date_img)
+    Anim.BP(can_date, icon_all, ICON.date_img_max, ICON.date_img, text_all)
     can_date.tag_bind(icon_all, "<Button-1>", DATE)
 
     text_type.grid(row=0, column=0, padx=49, sticky=W)
@@ -758,7 +802,19 @@ def WD_tri(event):
 
 # SOUS_MENU __________________________________________________________________________________________________________________________    
     frame_sm = Frame(wd, bg=CDT.bg_color)
-    
+
+    # MENU NAME __________________________________________
+    frame_menu_name = Frame(frame_sm, bg=CDT.bg_color)
+
+    text_menu_name = Label(frame_menu_name, text="Nom : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
+    entry_name = Entry(frame_menu_name, width=20, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    text_name_ex = Label(frame_menu_name, text='"Nom complet ou incomplet"', font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
+
+    text_menu_name.grid(row=0, column=0,padx=20, sticky=W)
+    entry_name.grid(row=0, column=1,padx=80, sticky=W)
+    text_name_ex.grid(row=0, column=2,padx=0, sticky=W)
+
+
     # MENU DATE___________________________________________
     frame_sm_date = Frame(frame_sm, bg=CDT.bg_color)
     text_menu_date = Label(frame_sm_date, text="Tri part : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
@@ -767,21 +823,41 @@ def WD_tri(event):
     text_mois = Label(frame_sm_date, text="Mois", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.bg_color)
     text_jour = Label(frame_sm_date, text="Jour", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.bg_color)
     
-    can_annee = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=1)
-    can_mois = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=1)
-    can_jour = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=1)      
+    can_annee = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
+    can_mois = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
+    can_jour = Canvas(frame_sm_date, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)      
 
-    icon_ext = can_annee.create_image(37.5,37.5, image=ICON.info_img)
-    Anim.BP(can_annee, icon_ext, ICON.info_img_max, ICON.info_img, text_annee)
-    # can_ext.tag_bind(icon_ext, "<Button-1>",EXT)
+    def AN(event):
+        Anim.Choice_menu_mode(event, can_annee, can_mois, can_jour)
+        
+        global number_tri_date
+        number_tri_date = 1
+        
+        
+    def MOIS(event):
+        Anim.Choice_menu_mode(event, can_mois, can_jour, can_annee)
+        
+        global number_tri_date
+        number_tri_date = 2
+        
 
-    icon_name = can_mois.create_image(37.5,37.5, image=ICON.info_img)
-    Anim.BP(can_mois, icon_name, ICON.info_img_max, ICON.info_img, text_mois)
-    # can_name.tag_bind(icon_name, "<Button-1>",NAME)
+    def JOUR(event):
+        Anim.Choice_menu_mode(event, can_jour, can_annee, can_mois)
+       
+        global number_tri_date
+        number_tri_date = 3
 
-    icon_all = can_jour.create_image(37.5,37.5, image=ICON.info_img)
-    Anim.BP(can_jour, icon_all, ICON.info_img_max, ICON.info_img, text_jour)
-    # can_all.tag_bind(icon_all, "<Button-1>", ALL)
+    icon_ext = can_annee.create_image(37.5,37.5, image=ICON.an_img)
+    Anim.BP(can_annee, icon_ext, ICON.an_img_max, ICON.an_img, text_annee)
+    can_annee.tag_bind(icon_ext, "<Button-1>",AN)
+
+    icon_name = can_mois.create_image(37.5,37.5, image=ICON.mois_img)
+    Anim.BP(can_mois, icon_name, ICON.mois_img_max, ICON.mois_img, text_mois)
+    can_mois.tag_bind(icon_name, "<Button-1>",MOIS)
+
+    icon_all = can_jour.create_image(37.5,37.5, image=ICON.jour_img)
+    Anim.BP(can_jour, icon_all, ICON.jour_img_max, ICON.jour_img, text_jour)
+    can_jour.tag_bind(icon_all, "<Button-1>", JOUR)
 
 
     text_menu_date.grid(row=0, column=0, padx=20, sticky=W)
@@ -798,17 +874,17 @@ def WD_tri(event):
 
 
     # NOM SOUS-DOSSIER __________________________________________________________________________________________________________________________    
-    frame_new_name = Frame(wd, bg=CDT.bg_color)
+    frame_SD_name = Frame(wd, bg=CDT.bg_color)
 
-    text_new_name = Label(frame_new_name, text="Nom sous-dossiers : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_new_name = Entry(frame_new_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
-    text_new_name_ex = Label(frame_new_name, text="(Facultatif)", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
+    text_SD_name = Label(frame_SD_name, text="Nom sous-dossiers : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
+    entry_SD_name = Entry(frame_SD_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    text_SD_name_ex = Label(frame_SD_name, text="(Facultatif)", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
     
-    text_new_name.grid(row=0, column=0,padx=20, sticky=W)
-    entry_new_name.grid(row=0, column=1,padx=0, sticky=W)
-    text_new_name_ex.grid(row=0, column=2,padx=10, sticky=W)
+    text_SD_name.grid(row=0, column=0,padx=20, sticky=W)
+    entry_SD_name.grid(row=0, column=1,padx=0, sticky=W)
+    text_SD_name_ex.grid(row=0, column=2,padx=10, sticky=W)
     
-    frame_new_name.place(x=0, y=550)
+    frame_SD_name.place(x=0, y=550)
 
 
     # BP_GO __________________________________________________________________________________________________________________________
@@ -830,17 +906,59 @@ def WD_tri(event):
                 pass              
 
     
+
+
+    
     def ctrl_isFiles(rep):
-        f4 = Prog_process.ctrl_all_files(rep)
-        if f4 == True:
+        f2 = Prog_process.ctrl_all_files(rep)
+        if f2 == True:
             return True
+
+
+    def ctrl_name(rep):                   # CTRL new name __________________________________________________________________
+        name = entry_name.get()    
+        if name == "":
+            messagebox.showerror("Information manquante", "Veuillez renseigner le nom à rechercher")
+        else:
+            f3 = Prog_process.ctrl_name(rep, name)
+            if f3 == True:
+                Prog_process.name = name
+                return True
+
+
+
+    def ctrl_SDname():                   # CTRL SD name __________________________________________________________________
+        SDname = entry_SD_name.get()    
+        if SDname == "":
+            SDname = ""
+            
+        f5 = Prog_process.ctrl_Nname(SDname)
+        if f5 == True:
+            if SDname == "":
+                Prog_process.SDname = ""
+            else:
+                Prog_process.SDname = (SDname+' - ')
+            return True
+                
+
+    def ctrl_mode_date():
+        mode_date = 0
+        try:
+            mode_date = number_tri_date
+        except : pass
+
+        if mode_date == 1 or mode_date == 2 or mode_date == 3:
+            Prog_process.M_date = mode_date
+            return True
+
+        else:
+            messagebox.showerror("Information manquante", "Veuillez choisir un mode de tri par date")
 
 
 
     def Confirm(Op):
         F_list = (Prog_process.files_list)
         nbrE = str(len(F_list))
-
         Prog_process.rename_list = F_list
 
         for widget in wd.winfo_children():
@@ -933,6 +1051,26 @@ def WD_extract(event):
 
     frame_degre.place(x=0, y=220)
     
+
+    # SUPRESSION __________________________________________________________________________________________________________________________
+    frame_supp = Frame(wd, bg=CDT.bg_color)
+
+    def clic_supp():    
+        frame_supp.update()
+        var = var_supp.get()
+        if var == 0:
+            text_supp.config(text="Conservation des sous-dossier vide")
+        if var == 1:
+            text_supp.config(text="Suppression des sous-dossier vide")
+
+    text_supp = Label(frame_supp, text="Conservation des sous-dossier vide", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
+    var_supp = IntVar()
+    check_supp = Checkbutton(frame_supp,variable=var_supp, image=ICON.keepSD_img, selectimage=ICON.suppSD_img, command=clic_supp, selectcolor=CDT.bg_color, indicatoron=False, bg=CDT.bg_color,fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
+    text_supp.grid(row=0, column=1, padx=20, sticky='w')
+    check_supp.grid(row=0, column=0, padx=20, sticky='w')
+
+    frame_supp.place(x=0, y=300)
+
     # BP_GO __________________________________________________________________________________________________________________________
     frame_go = Frame(wd, bg=CDT.bg_color)
     
@@ -941,6 +1079,8 @@ def WD_extract(event):
 
     def clic_go(event):
         rep = entry_path.get()  
+        Prog_process.supp_SD = (var_supp.get())
+
         if rep == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le chemin du répertoire")
         else:
@@ -1099,17 +1239,18 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
 
         def rename_ok():
             tpsOp = round(((time.time())-Prog_process.tps), 4)
-            ms = round((tpsOp*1000), 3)
+            msOp = round((tpsOp*1000), 3)
             if tpsOp >= 1:
                 Ntime = "secondes"
-            if tpsOp < 1:
-                tpsOP = ms
-                Ntime = "millisecondes"
-            
-            messagebox.showinfo("Succès", '''{}   Fichiers rennomés avec succès
-            Temps de l'opération : {} {}'''.format(nbrE, tpsOp, Ntime))
+                messagebox.showinfo("Succès", '''{}   Fichiers rennomés avec succès
+                Temps de l'opération : {} {}'''.format(nbrE, tpsOp, Ntime))
 
-            Naviguation.nav_menu(WD_acceuil, 0)
+            if tpsOp < 1:
+                Ntime = "millisecondes"
+                messagebox.showinfo("Succès", '''{}   Fichiers rennomés avec succès
+                Temps de l'opération : {} {}'''.format(nbrE, msOp, Ntime))
+
+            Naviguation.nav_menu(back, 0)
 
 
         if R_mode == 1:
@@ -1131,25 +1272,25 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
 
         if Op == 3:
             Prog_process.Tri_ext()
-            # check_err()
+            check_err()
         if Op == 4:
             Prog_process.Tri_name()
-            # check_err()
+            check_err()
         if Op == 5:
             Prog_process.Tri_date()
-            # check_err()
+            check_err()
         if Op == 6:
             Prog_process.Tri_ext_name()
-            # check_err()
+            check_err()
         if Op == 7:
             Prog_process.Tri_ext_date()
-            # check_err()
+            check_err()
         if Op == 8:
             Prog_process.Tri_name_date()
-            # check_err()
+            check_err()
         if Op == 9:
             Prog_process.Tri_ext_name_date()
-            # check_err()
+            check_err()
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
     Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)
