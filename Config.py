@@ -62,7 +62,11 @@ class ICON:
     jour_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Jour_logo_max.png")
 
     suppSD_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/SuppSD_logo.png")
+    suppSD_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/SuppSD_logo_max.png")
+
     keepSD_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/KeepSD_logo.png")
+    keepSD_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/KeepSD_logo_max.png")
+
 # ______________________________________________________________ Colors Dimensions Text ______________________________________________________________ #
 
 

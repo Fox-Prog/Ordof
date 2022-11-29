@@ -237,7 +237,7 @@ def Rename_all():       # ______________________________________________________
 # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #                                                              DEPACK
 
-supp_SD = True
+supp_SD = ""
 
 def Depack(deg):
     Init_Op()
@@ -256,7 +256,7 @@ def Depack(deg):
                         pass
                 
                 os.chdir(rep)
-                if supp_SD == True:
+                if supp_SD == '1':
                     try:
                         os.rmdir(rep+'/'+doss)
                     except:

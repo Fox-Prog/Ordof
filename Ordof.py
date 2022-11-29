@@ -40,7 +40,7 @@ wd.iconbitmap(ICON.Logo)
 class Menu:
     def Title(txtT, txtST):
         frame_title = Frame(wd, bg=CDT.bg_color)
-        Title = Label(frame_title, text=txtT, font=(CDT.title_caly, CDT.title_size), bg=CDT.bg_color, fg=CDT.fg_color).pack()
+        Title = Label(frame_title, text=txtT, font=(CDT.title_caly, CDT.title_size), bg=CDT.bg_color, fg=CDT.fg_color).pack()  # type: ignore
         Subtitle = Label(frame_title, text=txtST, font=(CDT.sub_title_caly, CDT.sub_title_size), bg=CDT.bg_color, fg=CDT.fg_color).pack()
         frame_title.pack(side='top', pady=CDT.title_marge)
 
@@ -50,21 +50,21 @@ class Menu:
 class Anim:
     def BP(can, icon, max, min, text):
         def enter(event):
-            can.itemconfig(icon, image=max)
+            can.itemconfig(icon, image=max)  # type: ignore
             try:
                 text.config(fg=CDT.fg_color)
             except:
                 pass
 
         def leave(event):
-            can.itemconfig(icon, image=min)
+            can.itemconfig(icon, image=min)  # type: ignore
             try:
                 text.config(fg=CDT.bg_color)
             except:
                 pass
                 
-        can.tag_bind(icon, "<Enter>",enter)
-        can.tag_bind(icon, "<Leave>",leave)
+        can.tag_bind(icon, "<Enter>",enter)  # type: ignore
+        can.tag_bind(icon, "<Leave>",leave)  # type: ignore
 
         
 
@@ -113,8 +113,8 @@ class BP_Strd:
         can_back.pack()
         can_back.place(x=CDT.bp_bk_mrg_x, y=CDT.bp_bk_mrg_y, anchor='nw')
         icon_back = can_back.create_image(CDT.xy_icon_nav, CDT.xy_icon_nav, image=ICON.back_img)
-        Anim.BP(can_back, icon_back, ICON.back_img_max, ICON.back_img, 0)
-        can_back.tag_bind(icon_back, "<Button-1>", lambda event,arg1 = True: Naviguation.nav_menu(path, event))
+        Anim.BP(can_back, icon_back, ICON.back_img_max, ICON.back_img, 0)  # type: ignore
+        can_back.tag_bind(icon_back, "<Button-1>", lambda event,arg1 = True: Naviguation.nav_menu(path, event))  # type: ignore
 
 
 
@@ -124,7 +124,7 @@ class BP_Strd:
         can_info.place(x=CDT.bp_info_mrg_x,y=CDT.bp_info_mrg_y, anchor='ne')
 
         icon_info = can_info.create_image(CDT.xy_icon_nav, CDT.xy_icon_nav, image=ICON.info_img)
-        Anim.BP(can_info, icon_info, ICON.info_img_max, ICON.info_img, 0)
+        Anim.BP(can_info, icon_info, ICON.info_img_max, ICON.info_img, 0)  # type: ignore
         can_info.tag_bind(icon_info, "<Button-1>", lambda event,arg1 = True: Info.WD_info(txtST, txtC))
 
 
@@ -140,9 +140,9 @@ class Naviguation:
         Prog_process.Mode_Tri.Reset()
         Anim.Reset_Tri()
         try:
-            path(event)
+            path(event)  # type: ignore
         except:
-            path()
+            path()  # type: ignore
 
       
     
@@ -153,7 +153,7 @@ class Naviguation:
 
 def WD_acceuil():
     # Titre __________________________________________________________________________________________________________________________
-    Menu.Title("Ordof", "Mettez de l'ordre dans vos fichiers")
+    Menu.Title("Ordof", "Mettez de l'ordre dans vos fichiers")  # type: ignore
 
     # Canvas __________________________________________________________________________________________________________________________
     lrg = 160
@@ -184,7 +184,7 @@ def WD_acceuil():
         WD_rename(event)
 
     icon_rename = can_rename.create_image(lrg/2, htr/2, image=ICON.rename_img)
-    Anim.BP(can_rename, icon_rename, ICON.rename_img_max, ICON.rename_img, text_rename)
+    Anim.BP(can_rename, icon_rename, ICON.rename_img_max, ICON.rename_img, text_rename)  # type: ignore
     can_rename.tag_bind(icon_rename, "<Button-1>", clic_rename)
     
 
@@ -194,7 +194,7 @@ def WD_acceuil():
         WD_pack(event)
 
     icon_pack = can_pack.create_image(80, 80, image=ICON.pack_img)
-    Anim.BP(can_pack, icon_pack, ICON.pack_img_max, ICON.pack_img, text_pack)
+    Anim.BP(can_pack, icon_pack, ICON.pack_img_max, ICON.pack_img, text_pack)  # type: ignore
     can_pack.tag_bind(icon_rename, "<Button-1>", clic_pack)
 
 
@@ -223,13 +223,13 @@ def WD_acceuil():
 def WD_rename(event):
     
     # Titre __________________________________________________________________________________________________________________________
-    Menu.Title("Auto-Rename", "Renomme les fichiers")
+    Menu.Title("Auto-Rename", "Renomme les fichiers")  # type: ignore
 
     # BP_back __________________________________________________________________________________________________________________________
-    BP_Strd.BP_back(WD_acceuil)
+    BP_Strd.BP_back(WD_acceuil)  # type: ignore
 
     # BP_info __________________________________________________________________________________________________________________________
-    BP_Strd.BP_info(CDT.text_subtitle_rename_info, CDT.text_corps_rename_info)
+    BP_Strd.BP_info(CDT.text_subtitle_rename_info, CDT.text_corps_rename_info)  # type: ignore
 
     # PATH_ENTRY __________________________________________________________________________________________________________________________    
     frame_entry = Frame(wd, bg=CDT.bg_color)
@@ -253,7 +253,7 @@ def WD_rename(event):
         REP()
 
     icon_browser = can_browser.create_image(37.5,37.5, image=ICON.browser_img)
-    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)
+    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)  # type: ignore
     can_browser.tag_bind(icon_browser, "<Button-1>",clic_browser)
    
     frame_entry.place(x=CDT.entry_rep_mrg_x, y=CDT.entry_rep_mrg_y)  
@@ -308,15 +308,15 @@ def WD_rename(event):
         
 
     icon_ext = can_ext.create_image(37.5,37.5, image=ICON.ext_img)
-    Anim.BP(can_ext, icon_ext, ICON.ext_img_max, ICON.ext_img, text_ext)
+    Anim.BP(can_ext, icon_ext, ICON.ext_img_max, ICON.ext_img, text_ext)  # type: ignore
     can_ext.tag_bind(icon_ext, "<Button-1>",EXT)
 
     icon_name = can_name.create_image(37.5,37.5, image=ICON.name_img)
-    Anim.BP(can_name, icon_name, ICON.name_img_max, ICON.name_img, text_name)
+    Anim.BP(can_name, icon_name, ICON.name_img_max, ICON.name_img, text_name)  # type: ignore
     can_name.tag_bind(icon_name, "<Button-1>",NAME)
 
     icon_all = can_all.create_image(37.5,37.5, image=ICON.all_img)
-    Anim.BP(can_all, icon_all, ICON.all_img_max, ICON.all_img, text_all)
+    Anim.BP(can_all, icon_all, ICON.all_img_max, ICON.all_img, text_all)  # type: ignore
     can_all.tag_bind(icon_all, "<Button-1>", ALL)
 
     text_type.grid(row=0, column=0, padx=22, sticky=W)
@@ -455,7 +455,7 @@ def WD_rename(event):
 
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
-    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)
+    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
     text_go.grid(row=0, column=0, padx=40, sticky=W)
@@ -501,10 +501,10 @@ def WD_rename(event):
 
 def WD_pack(event):
     # Titre __________________________________________________________________________________________________________________________
-    Menu.Title("Mashal-files", "Tri ou extrait les fichiers")
+    Menu.Title("Mashal-files", "Tri ou extrait les fichiers")  # type: ignore
    
     # BP_back __________________________________________________________________________________________________________________________
-    BP_Strd.BP_back(WD_acceuil)
+    BP_Strd.BP_back(WD_acceuil)  # type: ignore
 
     # Canvas __________________________________________________________________________________________________________________________
     lrg = 160
@@ -537,7 +537,7 @@ def WD_pack(event):
 
 
     icon_tri = can_tri.create_image(lrg/2, htr/2, image=ICON.tri_img)
-    Anim.BP(can_tri, icon_tri, ICON.tri_img_max, ICON.tri_img, text_tri)
+    Anim.BP(can_tri, icon_tri, ICON.tri_img_max, ICON.tri_img, text_tri)  # type: ignore
     can_tri.tag_bind(icon_tri, "<Button-1>", clic_tri)
     
 
@@ -547,7 +547,7 @@ def WD_pack(event):
         WD_extract(event)
 
     icon_extract = can_extract.create_image(80, 80, image=ICON.extract_img)
-    Anim.BP(can_extract, icon_extract, ICON.extract_img_max, ICON.extract_img, text_extract)
+    Anim.BP(can_extract, icon_extract, ICON.extract_img_max, ICON.extract_img, text_extract)  # type: ignore
     can_extract.tag_bind(icon_extract, "<Button-1>", clic_extract)
 
 
@@ -581,10 +581,10 @@ def WD_tri(event):
     wd.geometry('720x720')
 
     # Titre __________________________________________________________________________________________________________________________
-    Menu.Title("Mode tri", "Tri et range les fichiers dans des sous-dossiers")
+    Menu.Title("Mode tri", "Tri et range les fichiers dans des sous-dossiers")  # type: ignore
 
     # BP_back __________________________________________________________________________________________________________________________
-    BP_Strd.BP_back(WD_pack)    
+    BP_Strd.BP_back(WD_pack)      # type: ignore
     
     # BP_info __________________________________________________________________________________________________________________________
 
@@ -610,7 +610,7 @@ def WD_tri(event):
         REP()
 
     icon_browser = can_browser.create_image(37.5,37.5, image=ICON.browser_img)
-    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)
+    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)  # type: ignore
     can_browser.tag_bind(icon_browser, "<Button-1>",clic_browser)
    
     frame_entry.place(x=CDT.entry_rep_mrg_x, y=CDT.entry_rep_mrg_y) 
@@ -775,15 +775,15 @@ def WD_tri(event):
         
         
     icon_ext = can_ext.create_image(37.5,37.5, image=ICON.ext_img)
-    Anim.BP(can_ext, icon_ext, ICON.ext_img_max, ICON.ext_img, text_ext)
+    Anim.BP(can_ext, icon_ext, ICON.ext_img_max, ICON.ext_img, text_ext)  # type: ignore
     can_ext.tag_bind(icon_ext, "<Button-1>",EXT)
 
     icon_name = can_name.create_image(37.5,37.5, image=ICON.name_img)
-    Anim.BP(can_name, icon_name, ICON.name_img_max, ICON.name_img, text_name)
+    Anim.BP(can_name, icon_name, ICON.name_img_max, ICON.name_img, text_name)  # type: ignore
     can_name.tag_bind(icon_name, "<Button-1>",NAME)
 
     icon_all = can_date.create_image(37.5,37.5, image=ICON.date_img)
-    Anim.BP(can_date, icon_all, ICON.date_img_max, ICON.date_img, text_all)
+    Anim.BP(can_date, icon_all, ICON.date_img_max, ICON.date_img, text_all)  # type: ignore
     can_date.tag_bind(icon_all, "<Button-1>", DATE)
 
     text_type.grid(row=0, column=0, padx=49, sticky=W)
@@ -848,15 +848,15 @@ def WD_tri(event):
         number_tri_date = 3
 
     icon_ext = can_annee.create_image(37.5,37.5, image=ICON.an_img)
-    Anim.BP(can_annee, icon_ext, ICON.an_img_max, ICON.an_img, text_annee)
+    Anim.BP(can_annee, icon_ext, ICON.an_img_max, ICON.an_img, text_annee)  # type: ignore
     can_annee.tag_bind(icon_ext, "<Button-1>",AN)
 
     icon_name = can_mois.create_image(37.5,37.5, image=ICON.mois_img)
-    Anim.BP(can_mois, icon_name, ICON.mois_img_max, ICON.mois_img, text_mois)
+    Anim.BP(can_mois, icon_name, ICON.mois_img_max, ICON.mois_img, text_mois)  # type: ignore
     can_mois.tag_bind(icon_name, "<Button-1>",MOIS)
 
     icon_all = can_jour.create_image(37.5,37.5, image=ICON.jour_img)
-    Anim.BP(can_jour, icon_all, ICON.jour_img_max, ICON.jour_img, text_jour)
+    Anim.BP(can_jour, icon_all, ICON.jour_img_max, ICON.jour_img, text_jour)  # type: ignore
     can_jour.tag_bind(icon_all, "<Button-1>", JOUR)
 
 
@@ -970,7 +970,7 @@ def WD_tri(event):
 
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
-    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)
+    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
     text_go.grid(row=0, column=0, padx=40, sticky=W)
@@ -1002,13 +1002,13 @@ def WD_tri(event):
 def WD_extract(event):
 
     # Titre __________________________________________________________________________________________________________________________
-    Menu.Title("Mode extraction", "Extrait les fichiers des sous-dossiers")
+    Menu.Title("Mode extraction", "Extrait les fichiers des sous-dossiers")  # type: ignore
     
     # BP_back __________________________________________________________________________________________________________________________
-    BP_Strd.BP_back(WD_pack)
+    BP_Strd.BP_back(WD_pack)  # type: ignore
     
     # BP_info __________________________________________________________________________________________________________________________
-    BP_Strd.BP_info(CDT.text_subtitle_depack_info, CDT.text_corps_depack_info)
+    BP_Strd.BP_info(CDT.text_subtitle_depack_info, CDT.text_corps_depack_info)  # type: ignore
 
     # PATH_ENTRY __________________________________________________________________________________________________________________________    
     frame_entry = Frame(wd, bg=CDT.bg_color)
@@ -1032,7 +1032,7 @@ def WD_extract(event):
         REP()
 
     icon_browser = can_browser.create_image(37.5,37.5, image=ICON.browser_img)
-    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)
+    Anim.BP(can_browser, icon_browser, ICON.browser_img_max, ICON.browser_img, 0)  # type: ignore
     can_browser.tag_bind(icon_browser, "<Button-1>",clic_browser)
    
     frame_entry.place(x=CDT.entry_rep_mrg_x, y=CDT.entry_rep_mrg_y) 
@@ -1053,23 +1053,49 @@ def WD_extract(event):
     
 
     # SUPRESSION __________________________________________________________________________________________________________________________
-    frame_supp = Frame(wd, bg=CDT.bg_color)
+    frame_keep_supp = Frame(wd, bg=CDT.bg_color)
+    frame_keep = Frame(frame_keep_supp, bg=CDT.bg_color)
+    frame_supp = Frame(frame_keep_supp, bg=CDT.bg_color)
 
-    def clic_supp():    
-        frame_supp.update()
-        var = var_supp.get()
-        if var == 0:
-            text_supp.config(text="Conservation des sous-dossier vide")
-        if var == 1:
-            text_supp.config(text="Suppression des sous-dossier vide")
+    text_keep = Label(frame_keep, text="Conservation des sous-dossier vide", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
+    text_supp = Label(frame_supp, text="Suppression des sous-dossier vide", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
 
-    text_supp = Label(frame_supp, text="Conservation des sous-dossier vide", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
-    var_supp = IntVar()
-    check_supp = Checkbutton(frame_supp,variable=var_supp, image=ICON.keepSD_img, selectimage=ICON.suppSD_img, command=clic_supp, selectcolor=CDT.bg_color, indicatoron=False, bg=CDT.bg_color,fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
+    can_keep = Canvas(frame_keep, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
+    can_supp = Canvas(frame_supp, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
+    
+    class IcL:
+        var_supp_origin = ['0', '1']
+
+    def clic_SK(event):    
+        IcL.var_supp_origin = (list(reversed(IcL.var_supp_origin)))
+        var = IcL.var_supp_origin[0]
+        
+        if var == '0':
+            frame_keep.pack()
+            frame_supp.pack_forget()
+            
+        if var == '1':
+            frame_keep.pack_forget()
+            frame_supp.pack()
+        
+        
+    icon_keep = can_keep.create_image(37.5,37.5, image=ICON.keepSD_img)
+    Anim.BP(can_keep, icon_keep, ICON.keepSD_img_max, ICON.keepSD_img, 0)  # type: ignore
+    can_keep.tag_bind(icon_keep, "<Button-1>",clic_SK)  # type: ignore
+
+    icon_supp = can_supp.create_image(37.5,37.5, image=ICON.suppSD_img)
+    Anim.BP(can_supp, icon_supp, ICON.suppSD_img_max, ICON.suppSD_img, 0)  # type: ignore
+    can_supp.tag_bind(icon_supp, "<Button-1>",clic_SK)  # type: ignore
+
+
+    text_keep.grid(row=0, column=1, padx=20, sticky='w')
+    can_keep.grid(row=0, column=0, padx=20, sticky='w')
+
     text_supp.grid(row=0, column=1, padx=20, sticky='w')
-    check_supp.grid(row=0, column=0, padx=20, sticky='w')
+    can_supp.grid(row=0, column=0, padx=20, sticky='w')
 
-    frame_supp.place(x=0, y=300)
+    frame_keep.pack()
+    frame_keep_supp.place(x=0, y=300)
 
     # BP_GO __________________________________________________________________________________________________________________________
     frame_go = Frame(wd, bg=CDT.bg_color)
@@ -1079,7 +1105,7 @@ def WD_extract(event):
 
     def clic_go(event):
         rep = entry_path.get()  
-        Prog_process.supp_SD = (var_supp.get())
+        Prog_process.supp_SD = (IcL.var_supp_origin[0])
 
         if rep == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le chemin du répertoire")
@@ -1127,6 +1153,7 @@ def WD_extract(event):
 
 
         def Depack_ok(nbrE):
+            Ntime = ""
             tpsOp = round(((time.time())-Prog_process.tps), 4)
             ms = round((tpsOp*1000), 3)
             if tpsOp >= 1:
@@ -1138,7 +1165,7 @@ def WD_extract(event):
             messagebox.showinfo("Succès", '''{}   Elements extrait avec succès
             Temps de l'opération : {} {}'''.format(nbrE, tpsOp, Ntime))
 
-            Naviguation.nav_menu(WD_extract, 0)
+            Naviguation.nav_menu(WD_extract, 0)  # type: ignore
 
         Prog_process.Depack(deg)
         check_err(rep)
@@ -1146,7 +1173,7 @@ def WD_extract(event):
 
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
-    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)
+    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
     text_go.grid(row=0, column=0, padx=40, sticky=W)
@@ -1293,7 +1320,7 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
             check_err()
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
-    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)
+    Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
     text_go.grid(row=0, column=0, padx=40, sticky=W)
@@ -1372,7 +1399,7 @@ def err_report(err_list, nbrErr, Op, back):
     can_goback = Canvas(frame_goback, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
 
     icon_go = can_goback.create_image(37.5,37.5, image=ICON.goback_img)
-    Anim.BP(can_goback, icon_go, ICON.goback_img_max, ICON.goback_img, text_goback)
+    Anim.BP(can_goback, icon_go, ICON.goback_img_max, ICON.goback_img, text_goback)  # type: ignore
     can_goback.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: Naviguation.nav_menu(back, event))
 
     can_goback.grid(row=0, column=0, padx=20, sticky=W)
