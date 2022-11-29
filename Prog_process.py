@@ -49,6 +49,18 @@ def ctrl_ext_flag(ext_flag): # _________________________________________________
         files_list.append(el)
 
 
+def ctrl_ext_name_flag(ext_flag): # ___________________________________________________________________________ CTRL EXT NAME FLAG --> _flag+name+date
+    R_ext = ("*"+ext_flag)
+
+    global files_list_2
+    files_list_2 = []
+    all_list = []
+    all_list = glob.glob(R_ext)
+    for el in all_list:
+        if el in files_list:
+            files_list_2.append(el)
+
+
 def ctrl_name(rep, name): # ___________________________________________________________________________ CTRL NAME & FILES
     os.chdir(rep)
 
@@ -502,5 +514,35 @@ def Tri_name_date():        # __________________________________________________
 
 
 def Tri_ext_name_date():        # ___________________________________________________________________________ Tri ext + name + date
-    print("tri ext name date")
+    Init_Op()
+
+    for el in files_list:               # ___ Recup des flag (type d'extension presente dans le dossier)
+        txt = str(el)
+        split_ext = txt.split(".")
+        ext_flag = ("."+split_ext[1])
+
+        if ext_flag not in ext_flag_list:
+            ext_flag_list.append(ext_flag)
+
+
+    for els in ext_flag_list:              
+        Init_inter_flag()
+
+        ctrl_ext_name_flag(els)
+
+        for el in files_list_2:               # ___ ID Date
+            Find_date(el, M_date)
+
+        for date in date_list:              # ___ Create SD
+            try:
+                os.mkdir(SDname+name+' - '+date+' - '+els[1:])
+            except: pass
+
+        for el in files_list_2:               # ___ Copy
+            date_copy = Copy_date_element(el, M_date)
+            try:
+                target=(rep+'/'+SDname+name+' - '+date_copy+' - '+els[1:])
+                shutil.move(rep+'/'+el, target)
+            except:
+                err_list.append(el)
 

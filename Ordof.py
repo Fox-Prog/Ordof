@@ -1,5 +1,5 @@
-# v1.0 >>> Start interface graphique
-# A faire : Renommage par date // Info Tri
+# v1.0
+# A faire : Renommage par date
 
 from tkinter import *
 from tkinter import ttk
@@ -511,20 +511,21 @@ def WD_pack(event):
     htr = 160
     can_tri = Canvas(wd, bg=CDT.bg_color, width=lrg, height=htr, highlightthickness=0)
     can_tri.pack()
-    can_tri.place(x=100, y=200)
+    can_tri.place(x=460, y=200)
 
     can_extract = Canvas(wd, bg=CDT.bg_color, width=lrg, height=htr, highlightthickness=0)
     can_extract.pack()
-    can_extract.place(x=460, y=200)
+    can_extract.place(x=100, y=200)
+    
 
     # Texte mode __________________________________________________________________________________________________________________________
     frame_text = Frame(wd, bg=CDT.bg_color)
 
     text_tri = Label(frame_text, text="Trier les fichiers", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.bg_color)
-    text_tri.grid(row=0, column=0, sticky=W, padx=100)
+    text_tri.grid(row=0, column=1, sticky=W, padx=120)
 
     text_extract = Label(frame_text, text="Extraire les fichiers", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.bg_color)
-    text_extract.grid(row=0, column=1, sticky=W, padx=120)
+    text_extract.grid(row=0, column=0, sticky=W, padx=95)
 
     frame_text.pack(side='bottom', ipady=20)
 
@@ -587,6 +588,7 @@ def WD_tri(event):
     BP_Strd.BP_back(WD_pack)      # type: ignore
     
     # BP_info __________________________________________________________________________________________________________________________
+    BP_Strd.BP_info(CDT.text_subtitle_tri_info, CDT.text_corps_tri_info)  # type: ignore
 
     # PATH_ENTRY __________________________________________________________________________________________________________________________    
     frame_entry = Frame(wd, bg=CDT.bg_color)

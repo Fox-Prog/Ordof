@@ -24,7 +24,7 @@ def WD_info(txtST, txtC):
         frame_text = Frame(wd_info, bg=CDT.bg_color)
         can_text = Canvas(frame_text,width=(lrg-50), height=(htr-50), bg=CDT.bg_color, highlightthickness=0)
 
-        hbar = Scrollbar(frame_text, orient=VERTICAL)
+        hbar = Scrollbar(frame_text, orient='vertical')
         hbar.pack(side="right", fill="y")
 
         textC = Text(can_text, wrap=WORD, bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size), highlightthickness=0, yscrollcommand=hbar.set)
