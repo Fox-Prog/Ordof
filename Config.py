@@ -1,71 +1,85 @@
+# ORDOF -- This software is designed to rename, sort, store and organize files within a directory
+#     Copyright (C) 2022  Tripodi Matthieu
+
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 from tkinter import *
-
-
-
 
 
 # ______________________________________________________________ Ressources ______________________________________________________________ #
 
 
 class ICON:
-    Logo = 'C:\\Users\\Utilisateur\\Documents\\Programmation\\PYTHON\\Gestion_de_fichiers\\Ordof\\Ressources\\Logo.ico'
+    Logo = 'Ressources/Logo.ico'
 
-    rename_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Rename_logo.png")
-    rename_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Rename_logo_max.png")
+    rename_img = PhotoImage(file="Ressources/Rename_logo.png")
+    rename_img_max = PhotoImage(file="Ressources/Rename_logo_max.png")
 
-    pack_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Pack_logo.png")
-    pack_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Pack_logo_max.png")
+    pack_img = PhotoImage(file="Ressources/Pack_logo.png")
+    pack_img_max = PhotoImage(file="Ressources/Pack_logo_max.png")
 
-    back_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Back_logo.png")
-    back_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Back_logo_max.png")
+    back_img = PhotoImage(file="Ressources/Back_logo.png")
+    back_img_max = PhotoImage(file="Ressources/Back_logo_max.png")
 
-    browser_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Browser_logo.png")
-    browser_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Browser_logo_max.png")
+    browser_img = PhotoImage(file="Ressources/Browser_logo.png")
+    browser_img_max = PhotoImage(file="Ressources/Browser_logo_max.png")
 
-    info_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Info_logo.png")
-    info_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Info_logo_max.png")
+    info_img = PhotoImage(file="Ressources/Info_logo.png")
+    info_img_max = PhotoImage(file="Ressources/Info_logo_max.png")
     
-    go_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Go_logo.png")
-    go_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Go_logo_max.png")
+    go_img = PhotoImage(file="Ressources/Go_logo.png")
+    go_img_max = PhotoImage(file="Ressources/Go_logo_max.png")
 
-    goback_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Goback_logo.png")
-    goback_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Goback_logo_max.png")
+    goback_img = PhotoImage(file="Ressources/Goback_logo.png")
+    goback_img_max = PhotoImage(file="Ressources/Goback_logo_max.png")
 
 
-    tri_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Tri_logo.png")
-    tri_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Tri_logo_max.png")
+    tri_img = PhotoImage(file="Ressources/Tri_logo.png")
+    tri_img_max = PhotoImage(file="Ressources/Tri_logo_max.png")
 
-    extract_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Extract_logo.png")
-    extract_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Extract_logo_max.png")
+    extract_img = PhotoImage(file="Ressources/Extract_logo.png")
+    extract_img_max = PhotoImage(file="Ressources/Extract_logo_max.png")
 
-    ext_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Ext_logo.png")
-    ext_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Ext_logo_max.png")
+    ext_img = PhotoImage(file="Ressources/Ext_logo.png")
+    ext_img_max = PhotoImage(file="Ressources/Ext_logo_max.png")
 
-    name_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Name_logo.png")
-    name_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Name_logo_max.png")
+    name_img = PhotoImage(file="Ressources/Name_logo.png")
+    name_img_max = PhotoImage(file="Ressources/Name_logo_max.png")
 
-    all_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/All_logo.png")
-    all_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/All_logo_max.png")
+    all_img = PhotoImage(file="Ressources/All_logo.png")
+    all_img_max = PhotoImage(file="Ressources/All_logo_max.png")
 
-    vide_75_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Vide_75.png")
+    vide_75_img = PhotoImage(file="Ressources/Vide_75.png")
 
-    date_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Date_logo.png")
-    date_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Date_logo_max.png")
+    date_img = PhotoImage(file="Ressources/Date_logo.png")
+    date_img_max = PhotoImage(file="Ressources/Date_logo_max.png")
 
-    an_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/An_logo.png")
-    an_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/An_logo_max.png")
+    an_img = PhotoImage(file="Ressources/An_logo.png")
+    an_img_max = PhotoImage(file="Ressources/An_logo_max.png")
 
-    mois_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Mois_logo.png")
-    mois_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Mois_logo_max.png")
+    mois_img = PhotoImage(file="Ressources/Mois_logo.png")
+    mois_img_max = PhotoImage(file="Ressources/Mois_logo_max.png")
 
-    jour_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Jour_logo.png")
-    jour_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/Jour_logo_max.png")
+    jour_img = PhotoImage(file="Ressources/Jour_logo.png")
+    jour_img_max = PhotoImage(file="Ressources/Jour_logo_max.png")
 
-    suppSD_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/SuppSD_logo.png")
-    suppSD_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/SuppSD_logo_max.png")
+    suppSD_img = PhotoImage(file="Ressources/SuppSD_logo.png")
+    suppSD_img_max = PhotoImage(file="Ressources/SuppSD_logo_max.png")
 
-    keepSD_img = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/KeepSD_logo.png")
-    keepSD_img_max = PhotoImage(file="C:/Users/Utilisateur/Documents/Programmation/PYTHON/Gestion_de_fichiers/Ordof/Ressources/KeepSD_logo_max.png")
+    keepSD_img = PhotoImage(file="Ressources/KeepSD_logo.png")
+    keepSD_img_max = PhotoImage(file="Ressources/KeepSD_logo_max.png")
 
 # ______________________________________________________________ Colors Dimensions Text ______________________________________________________________ #
 

@@ -1,25 +1,41 @@
-# v1.0
-# A faire : Renommage par date
+
+# ORDOF -- This software is designed to rename, sort, store and organize files within a directory
+#     Copyright (C) 2022  Tripodi Matthieu
+
+#     This program is free software: you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation, either version 3 of the License, or
+#     (at your option) any later version.
+
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+
+#     You should have received a copy of the GNU General Public License
+#     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
 
 from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 from tkinter import filedialog
 from tkinter import messagebox
-import glob
 import fnmatch
 import time
 import os
 
-import Info
-import Prog_process
+import info
+import progg
 
 
 
 # Fenêtre __________________________________________________________________________________________________________________________
 wd=Tk()
-from Config import CDT
-from Config import ICON
+from config import CDT
+from config import ICON
 wd.title('Ordof')
 
 lrg = 720
@@ -125,7 +141,7 @@ class BP_Strd:
 
         icon_info = can_info.create_image(CDT.xy_icon_nav, CDT.xy_icon_nav, image=ICON.info_img)
         Anim.BP(can_info, icon_info, ICON.info_img_max, ICON.info_img, 0)  # type: ignore
-        can_info.tag_bind(icon_info, "<Button-1>", lambda event,arg1 = True: Info.WD_info(txtST, txtC))
+        can_info.tag_bind(icon_info, "<Button-1>", lambda event,arg1 = True: info.WD_info(txtST, txtC))
 
 
 
@@ -137,7 +153,7 @@ class Naviguation:
             widget.destroy()
         wd.resizable(False, False)
         wd.geometry('{}x{}'.format(lrg, htr))
-        Prog_process.Mode_Tri.Reset()
+        progg.Mode_Tri.Reset()
         Anim.Reset_Tri()
         try:
             path(event)  # type: ignore
@@ -386,9 +402,9 @@ def WD_rename(event):
         if rep == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le chemin du répertoire")
         else:
-            f1 = Prog_process.ctrl_rep(rep)
+            f1 = progg.ctrl_rep(rep)
             if f1 == True :  
-                Prog_process.rep = rep                        
+                progg.rep = rep                        
                 ctrl_mode(rep)
             else:
                 pass
@@ -406,9 +422,9 @@ def WD_rename(event):
                 if ext == "":
                     messagebox.showerror("Information manquante", "Veuillez renseigner le nom de l'extension à rechercher")
                 elif fnmatch.fnmatch(ext, '*.*'):
-                    f2 = Prog_process.ctrl_ext(rep, ext)
+                    f2 = progg.ctrl_ext(rep, ext)
                     if f2 == True:
-                        Prog_process.ext = ext
+                        progg.ext = ext
                         ctrl_Nname()
                 else:
                     messagebox.showwarning("Erreur syntaxe", "Veuillez inscrire l'extension avec un point")
@@ -418,12 +434,12 @@ def WD_rename(event):
             if name == "":
                 messagebox.showerror("Information manquante", "Veuillez renseigner le nom à rechercher")
             else:
-                f3 = Prog_process.ctrl_name(rep, name)
+                f3 = progg.ctrl_name(rep, name)
                 if f3 == True:
                     ctrl_Nname()
             
         elif R_mode == 3:
-            f4 = Prog_process.ctrl_all_files(rep)
+            f4 = progg.ctrl_all_files(rep)
             if f4 == True:
                 ctrl_Nname()
         
@@ -435,9 +451,9 @@ def WD_rename(event):
         if Nname == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le nouveau nom")
         else:
-            f5 = Prog_process.ctrl_Nname(Nname)
+            f5 = progg.ctrl_Nname(Nname)
             if f5 == True:
-                Prog_process.Nname = Nname
+                progg.Nname = Nname
                 ctrl_sep()
     
 
@@ -446,9 +462,9 @@ def WD_rename(event):
         if sep == "":
             sep = " "
        
-        f6 = Prog_process.ctrl_sep(sep)
+        f6 = progg.ctrl_sep(sep)
         if f6 == True:
-            Prog_process.sep = sep
+            progg.sep = sep
             Confirm()
                 
                 
@@ -468,11 +484,11 @@ def WD_rename(event):
 
     def Confirm():
         R_mode = rm_mode
-        F_list = (Prog_process.files_list)
+        F_list = (progg.files_list)
         nbrE = str(len(F_list))
         Op = 1
 
-        Prog_process.rename_list = F_list
+        progg.rename_list = F_list
 
         for widget in wd.winfo_children():
             widget.destroy()
@@ -632,7 +648,7 @@ def WD_tri(event):
     can_date = Canvas(frame_type, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)   
 
     def Num_tri(mode, rep):
-        number_tri = (int(Prog_process.Mode_Tri.tri_ext)+int(Prog_process.Mode_Tri.tri_name)+int(Prog_process.Mode_Tri.tri_date))
+        number_tri = (int(progg.Mode_Tri.tri_ext)+int(progg.Mode_Tri.tri_name)+int(progg.Mode_Tri.tri_date))
         Get_final_num(number_tri, mode, rep)
 
 
@@ -762,17 +778,17 @@ def WD_tri(event):
 
     def EXT(event):
         Anim.Tri_ext(event, can_ext)
-        Prog_process.Mode_Tri.Tri_ext()
+        progg.Mode_Tri.Tri_ext()
         Num_tri(1, 0)
        
     def NAME(event):
         Anim.Tri_name(event, can_name)
-        Prog_process.Mode_Tri.Tri_name()
+        progg.Mode_Tri.Tri_name()
         Num_tri(1, 0)
 
     def DATE(event):
         Anim.Tri_date(event, can_date)
-        Prog_process.Mode_Tri.Tri_date()
+        progg.Mode_Tri.Tri_date()
         Num_tri(1, 0)
         
         
@@ -900,9 +916,9 @@ def WD_tri(event):
         if rep == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le chemin du répertoire")
         else:
-            f1 = Prog_process.ctrl_rep(rep)
+            f1 = progg.ctrl_rep(rep)
             if f1 == True :  
-                Prog_process.rep = rep   
+                progg.rep = rep   
                 Num_tri(2, rep)                     
             else:
                 pass              
@@ -912,7 +928,7 @@ def WD_tri(event):
 
     
     def ctrl_isFiles(rep):
-        f2 = Prog_process.ctrl_all_files(rep)
+        f2 = progg.ctrl_all_files(rep)
         if f2 == True:
             return True
 
@@ -922,9 +938,9 @@ def WD_tri(event):
         if name == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le nom à rechercher")
         else:
-            f3 = Prog_process.ctrl_name(rep, name)
+            f3 = progg.ctrl_name(rep, name)
             if f3 == True:
-                Prog_process.name = name
+                progg.name = name
                 return True
 
 
@@ -934,12 +950,12 @@ def WD_tri(event):
         if SDname == "":
             SDname = ""
             
-        f5 = Prog_process.ctrl_Nname(SDname)
+        f5 = progg.ctrl_Nname(SDname)
         if f5 == True:
             if SDname == "":
-                Prog_process.SDname = ""
+                progg.SDname = ""
             else:
-                Prog_process.SDname = (SDname+' - ')
+                progg.SDname = (SDname+' - ')
             return True
                 
 
@@ -950,7 +966,7 @@ def WD_tri(event):
         except : pass
 
         if mode_date == 1 or mode_date == 2 or mode_date == 3:
-            Prog_process.M_date = mode_date
+            progg.M_date = mode_date
             return True
 
         else:
@@ -959,9 +975,9 @@ def WD_tri(event):
 
 
     def Confirm(Op):
-        F_list = (Prog_process.files_list)
+        F_list = (progg.files_list)
         nbrE = str(len(F_list))
-        Prog_process.rename_list = F_list
+        progg.rename_list = F_list
 
         for widget in wd.winfo_children():
             widget.destroy()
@@ -1107,12 +1123,12 @@ def WD_extract(event):
 
     def clic_go(event):
         rep = entry_path.get()  
-        Prog_process.supp_SD = (IcL.var_supp_origin[0])
+        progg.supp_SD = (IcL.var_supp_origin[0])
 
         if rep == "":
             messagebox.showerror("Information manquante", "Veuillez renseigner le chemin du répertoire")
         else:
-            f1 = Prog_process.ctrl_rep(rep)
+            f1 = progg.ctrl_rep(rep)
             if f1 == True :  
                 deg = entry_degre.get()
                 ctrl_deg(rep, deg)
@@ -1120,16 +1136,16 @@ def WD_extract(event):
                 pass
 
     def ctrl_deg(rep, deg):
-        f1 = Prog_process.ctrl_deg(deg)
+        f1 = progg.ctrl_deg(deg)
         if f1 == True:
             if deg == 'ALL' or deg == 'all':
                 deg = 100
-                Prog_process.rep = rep
+                progg.rep = rep
                 Depack(deg, rep)
 
             else:
                 deg = int(deg)
-                Prog_process.rep = rep
+                progg.rep = rep
                 Depack(deg, rep)
             
 
@@ -1138,7 +1154,7 @@ def WD_extract(event):
     def Depack(deg, rep):
         def check_err(rep):
             Op = 2
-            err_list = Prog_process.err_list
+            err_list = progg.err_list
             if (err_list) != []:
                 nbrErr = str(len(err_list))
                 for widget in wd.winfo_children():
@@ -1156,7 +1172,7 @@ def WD_extract(event):
 
         def Depack_ok(nbrE):
             Ntime = ""
-            tpsOp = round(((time.time())-Prog_process.tps), 4)
+            tpsOp = round(((time.time())-progg.tps), 4)
             ms = round((tpsOp*1000), 3)
             if tpsOp >= 1:
                 Ntime = "secondes"
@@ -1169,7 +1185,7 @@ def WD_extract(event):
 
             Naviguation.nav_menu(WD_extract, 0)  # type: ignore
 
-        Prog_process.Depack(deg)
+        progg.Depack(deg)
         check_err(rep)
 
 
@@ -1255,7 +1271,7 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
 
     def clic_go(event):
         def check_err():
-            err_list = Prog_process.err_list
+            err_list = progg.err_list
             if (err_list) != []:
                 nbrErr = str(len(err_list))
                 for widget in wd.winfo_children():
@@ -1267,7 +1283,7 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
                 rename_ok()
 
         def rename_ok():
-            tpsOp = round(((time.time())-Prog_process.tps), 4)
+            tpsOp = round(((time.time())-progg.tps), 4)
             msOp = round((tpsOp*1000), 3)
             if tpsOp >= 1:
                 Ntime = "secondes"
@@ -1283,42 +1299,42 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
 
 
         if R_mode == 1:
-            Prog_process.Rename_ext()
+            progg.Rename_ext()
             check_err()
             
 
         if R_mode == 2:
-            Prog_process.Rename_name()
+            progg.Rename_name()
             check_err()
            
 
         if R_mode == 3:
-            Prog_process.Rename_all()
+            progg.Rename_all()
             check_err()
             
 
 
 
         if Op == 3:
-            Prog_process.Tri_ext()
+            progg.Tri_ext()
             check_err()
         if Op == 4:
-            Prog_process.Tri_name()
+            progg.Tri_name()
             check_err()
         if Op == 5:
-            Prog_process.Tri_date()
+            progg.Tri_date()
             check_err()
         if Op == 6:
-            Prog_process.Tri_ext_name()
+            progg.Tri_ext_name()
             check_err()
         if Op == 7:
-            Prog_process.Tri_ext_date()
+            progg.Tri_ext_date()
             check_err()
         if Op == 8:
-            Prog_process.Tri_name_date()
+            progg.Tri_name_date()
             check_err()
         if Op == 9:
-            Prog_process.Tri_ext_name_date()
+            progg.Tri_ext_name_date()
             check_err()
 
     icon_go = can_go.create_image(37.5,37.5, image=ICON.go_img)
@@ -1351,7 +1367,7 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
 # //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #                                                                  Rapport erreur rename
 
-def err_report(err_list, nbrErr, Op, back):
+def err_report(err_list, nbrErr, Op, progg):
 
     # Titre __________________________________________________________________________________________________________________________
     frame_title_confirm_R = Frame(wd, bg=CDT.bg_color)
@@ -1402,7 +1418,7 @@ def err_report(err_list, nbrErr, Op, back):
 
     icon_go = can_goback.create_image(37.5,37.5, image=ICON.goback_img)
     Anim.BP(can_goback, icon_go, ICON.goback_img_max, ICON.goback_img, text_goback)  # type: ignore
-    can_goback.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: Naviguation.nav_menu(back, event))
+    can_goback.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: Naviguation.nav_menu(progg, event))
 
     can_goback.grid(row=0, column=0, padx=20, sticky=W)
     text_goback.grid(row=0, column=1, padx=40, sticky=W)
