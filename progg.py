@@ -283,7 +283,7 @@ def Depack(deg):
                         pass
                 
                 os.chdir(rep)
-                if supp_SD == '1':
+                if supp_SD == '1' and err_list==[]:
                     try:
                         os.rmdir(rep+'/'+doss)
                     except:

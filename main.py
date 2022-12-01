@@ -16,7 +16,15 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+########################################################################################################################################
 
+# Test MacOS --> Programme ok // Mise en page à revoir...
+
+########################################################################################################################################
+# A faire :
+# -- mise en page MacOS 
+# -- compiler sur MacOS
+########################################################################################################################################
 
 from tkinter import *
 from tkinter import ttk
@@ -26,10 +34,10 @@ from tkinter import messagebox
 import fnmatch
 import time
 import os
+import shutil
 
 import info
 import progg
-
 
 
 # Fenêtre __________________________________________________________________________________________________________________________
@@ -251,7 +259,7 @@ def WD_rename(event):
     frame_entry = Frame(wd, bg=CDT.bg_color)
      
     text_path = Label(frame_entry, text="Chemin : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_path = Entry(frame_entry, width=60, bg=CDT.bg_entry)
+    entry_path = Entry(frame_entry, width=CDT.width_entry_path, bg=CDT.bg_entry, fg='black')
     
     text_path.grid(row=0, column=0,padx=20, sticky=W)
     entry_path.grid(row=0, column=1,padx=50, sticky=W)
@@ -353,7 +361,7 @@ def WD_rename(event):
     frame_menu_ext = Frame(frame_sm, bg=CDT.bg_color)
 
     text_menu_ext = Label(frame_menu_ext, text="Extension : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_extension = Entry(frame_menu_ext, width=6, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    entry_extension = Entry(frame_menu_ext, width=6, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size), fg='black')
     text_ext_ex = Label(frame_menu_ext, text='"Exemple : .avi / .jpg"', font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
 
     text_menu_ext.grid(row=0, column=0,padx=20, sticky=W)
@@ -364,7 +372,7 @@ def WD_rename(event):
     frame_menu_name = Frame(frame_sm, bg=CDT.bg_color)
 
     text_menu_name = Label(frame_menu_name, text="Nom : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_name = Entry(frame_menu_name, width=20, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    entry_name = Entry(frame_menu_name, width=20, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size), fg='black')
     text_name_ex = Label(frame_menu_name, text='"Nom complet ou incomplet"', font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
 
     text_menu_name.grid(row=0, column=0,padx=20, sticky=W)
@@ -379,9 +387,9 @@ def WD_rename(event):
     frame_new_name = Frame(wd, bg=CDT.bg_color)
 
     text_new_name = Label(frame_new_name, text="Nouveau nom : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_new_name = Entry(frame_new_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    entry_new_name = Entry(frame_new_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size), fg='black')
     text_sep = Label(frame_new_name, text="Séparateur : ", font=(CDT.text_entry_caly, CDT.text_entry_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_sep = Entry(frame_new_name, width=3, bg=CDT.bg_entry, font=(CDT.text_caly, CDT.text_size))
+    entry_sep = Entry(frame_new_name, width=3, bg=CDT.bg_entry, font=(CDT.text_caly, CDT.text_size), fg='black')
 
     text_new_name.grid(row=0, column=0,padx=20, sticky=W)
     entry_new_name.grid(row=0, column=1,padx=0, sticky=W)
@@ -391,7 +399,7 @@ def WD_rename(event):
     frame_new_name.place(x=0, y=360)
 
     # BP_GO __________________________________________________________________________________________________________________________
-    frame_go = Frame(wd, bg=CDT.bg_color)
+    frame_go = Frame(wd, bg=CDT.bg_color, width=720, padx=259, pady=10)
     
     text_go = Label(frame_go, text="Rename >>> ", font=(CDT.title_caly, CDT.title_size), bg=CDT.bg_color, fg=CDT.bg_color)
     can_go = Canvas(frame_go, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
@@ -474,10 +482,11 @@ def WD_rename(event):
     Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
-    text_go.grid(row=0, column=0, padx=40, sticky=W)
-    can_go.grid(row=0, column=1, padx=20, sticky=W)
+    text_go.grid(row=0, column=0)
+    can_go.grid(row=0, column=1)
 
-    frame_go.place(x=155, y=390)
+    frame_go.pack(side='bottom', fill='x')
+
 
 
 
@@ -550,6 +559,10 @@ def WD_pack(event):
     def clic_tri(event):
         for widget in wd.winfo_children():
             widget.destroy()
+
+        # Avertissement __________________________________________________________________________________________________________________________
+        messagebox.showwarning("Attention !", "Pour les fichiers retouchés : La date de la retouche est utilisée pour le tri")
+
         WD_tri(event)
 
 
@@ -596,7 +609,7 @@ def WD_pack(event):
 #                                                              Fenêtre 4 >>> Tri fichiers
 def WD_tri(event):
     wd.geometry('720x720')
-
+   
     # Titre __________________________________________________________________________________________________________________________
     Menu.Title("Mode tri", "Tri et range les fichiers dans des sous-dossiers")  # type: ignore
 
@@ -610,7 +623,7 @@ def WD_tri(event):
     frame_entry = Frame(wd, bg=CDT.bg_color)
      
     text_path = Label(frame_entry, text="Chemin : ", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
-    entry_path = Entry(frame_entry, width=60, bg=CDT.bg_entry)
+    entry_path = Entry(frame_entry, width=CDT.width_entry_path, bg=CDT.bg_entry, fg='black')
     
     text_path.grid(row=0, column=0,padx=20, sticky=W)
     entry_path.grid(row=0, column=1,padx=50, sticky=W)
@@ -825,7 +838,7 @@ def WD_tri(event):
     frame_menu_name = Frame(frame_sm, bg=CDT.bg_color)
 
     text_menu_name = Label(frame_menu_name, text="Nom : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_name = Entry(frame_menu_name, width=20, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    entry_name = Entry(frame_menu_name, width=20, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size), fg='black')
     text_name_ex = Label(frame_menu_name, text='"Nom complet ou incomplet"', font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
 
     text_menu_name.grid(row=0, column=0,padx=20, sticky=W)
@@ -895,7 +908,7 @@ def WD_tri(event):
     frame_SD_name = Frame(wd, bg=CDT.bg_color)
 
     text_SD_name = Label(frame_SD_name, text="Nom sous-dossiers : ", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
-    entry_SD_name = Entry(frame_SD_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size))
+    entry_SD_name = Entry(frame_SD_name, width=24, bg=CDT.bg_entry, font=(CDT.text_entry_caly, CDT.text_entry_size), fg='black')
     text_SD_name_ex = Label(frame_SD_name, text="(Facultatif)", font=(CDT.text_caly, CDT.text_size), bg=CDT.bg_color, fg=CDT.fg_color)
     
     text_SD_name.grid(row=0, column=0,padx=20, sticky=W)
@@ -906,10 +919,12 @@ def WD_tri(event):
 
 
     # BP_GO __________________________________________________________________________________________________________________________
-    frame_go = Frame(wd, bg=CDT.bg_color)
+    frame_go = Frame(wd, bg=CDT.bg_color, width=720, padx=322, pady=10)
     
     text_go = Label(frame_go, text="Trier >>> ", font=(CDT.title_caly, CDT.title_size), bg=CDT.bg_color, fg=CDT.bg_color)
     can_go = Canvas(frame_go, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
+
+
 
     def clic_go(event):
         rep = entry_path.get()  
@@ -923,7 +938,6 @@ def WD_tri(event):
             else:
                 pass              
 
-    
 
 
     
@@ -991,10 +1005,10 @@ def WD_tri(event):
     Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
-    text_go.grid(row=0, column=0, padx=40, sticky=W)
-    can_go.grid(row=0, column=1, padx=20, sticky=W)
+    text_go.grid(row=0, column=0)
+    can_go.grid(row=0, column=1)
 
-    frame_go.pack(side='bottom', pady=20)
+    frame_go.pack(side='bottom', fill='x')
 
 
 
@@ -1032,7 +1046,7 @@ def WD_extract(event):
     frame_entry = Frame(wd, bg=CDT.bg_color)
      
     text_path = Label(frame_entry, text="Chemin : ", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
-    entry_path = Entry(frame_entry, width=60, bg=CDT.bg_entry)
+    entry_path = Entry(frame_entry, width=CDT.width_entry_path, bg=CDT.bg_entry, fg='black')
     
     text_path.grid(row=0, column=0,padx=20, sticky=W)
     entry_path.grid(row=0, column=1,padx=50, sticky=W)
@@ -1060,7 +1074,7 @@ def WD_extract(event):
     frame_degre = Frame(wd, bg=CDT.bg_color)
 
     text_degre = Label(frame_degre, text="Degré : ", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
-    entry_degre = Entry(frame_degre, width=4, bg=CDT.bg_entry, font=(CDT.text_caly, CDT.text_size))
+    entry_degre = Entry(frame_degre, width=4, bg=CDT.bg_entry, font=(CDT.text_caly, CDT.text_size), fg='black')
     text_ex_degre = Label(frame_degre, text="1,2,3... ALL pour tous", bg=CDT.bg_color, fg=CDT.fg_color, font=(CDT.text_caly, CDT.text_size))
 
     text_degre.grid(row=0,column=0,padx=20, sticky=W)
@@ -1116,7 +1130,7 @@ def WD_extract(event):
     frame_keep_supp.place(x=0, y=300)
 
     # BP_GO __________________________________________________________________________________________________________________________
-    frame_go = Frame(wd, bg=CDT.bg_color)
+    frame_go = Frame(wd, bg=CDT.bg_color, width=720, padx=260, pady=10)
     
     text_go = Label(frame_go, text="Extract >>> ", font=(CDT.title_caly, CDT.title_size), bg=CDT.bg_color, fg=CDT.bg_color)
     can_go = Canvas(frame_go, bg=CDT.bg_color, width=CDT.can_litle_bp_size, height=CDT.can_litle_bp_size, highlightthickness=0)
@@ -1163,6 +1177,7 @@ def WD_extract(event):
                 wd.geometry('{}x{}'.format(lrg, htr))
                 err_list.append('\n')
                 err_list.append("Erreur   >>>   Plusieurs fichiers ou dossiers ont le même nom...")
+                err_list.append(">>>   Suppression des sous-dossiers impossible...")
                 err_report(err_list, nbrErr, Op, WD_extract)
             else:
                 files_extract_list = os.listdir(rep)
@@ -1194,10 +1209,10 @@ def WD_extract(event):
     Anim.BP(can_go, icon_go, ICON.go_img_max, ICON.go_img, text_go)  # type: ignore
     can_go.tag_bind(icon_go, "<Button-1>", lambda event,arg1 = True: clic_go(event))
 
-    text_go.grid(row=0, column=0, padx=40, sticky=W)
-    can_go.grid(row=0, column=1, padx=20, sticky=W)
+    text_go.grid(row=0, column=0)
+    can_go.grid(row=0, column=1)
 
-    frame_go.place(x=155, y=390)
+    frame_go.pack(side='bottom', fill='x')
 
 
 
@@ -1258,7 +1273,7 @@ def WD_confirm(Op, nbrE, F_list, R_mode, back):
     if htr_wd > 1920:
         htr_wd = 1920
 
-    wd.geometry('620x{}+5+5'.format(htr_wd))
+    wd.geometry('620x{}'.format(htr_wd))
     can_files_list.config(height=htr_txt)
     
     
@@ -1406,7 +1421,7 @@ def err_report(err_list, nbrErr, Op, progg):
     if htr_wd > 1920:
         htr_wd = 1920
 
-    wd.geometry('620x{}+5+5'.format(htr_wd))
+    wd.geometry('620x{}'.format(htr_wd))
     can_err.config(height=htr_txt)
 
 

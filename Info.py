@@ -23,8 +23,8 @@ from tkinter import *
 
 def WD_info(txtST, txtC):
         wd_info=Tk()
-        from Config import CDT
-        from Config import ICON
+        from config import CDT
+        from config import ICON
         wd_info.title('Info')
         lrg = 900
         htr = 480

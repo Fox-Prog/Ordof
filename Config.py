@@ -45,7 +45,6 @@ class ICON:
     goback_img = PhotoImage(file="Ressources/Goback_logo.png")
     goback_img_max = PhotoImage(file="Ressources/Goback_logo_max.png")
 
-
     tri_img = PhotoImage(file="Ressources/Tri_logo.png")
     tri_img_max = PhotoImage(file="Ressources/Tri_logo_max.png")
 
@@ -60,8 +59,6 @@ class ICON:
 
     all_img = PhotoImage(file="Ressources/All_logo.png")
     all_img_max = PhotoImage(file="Ressources/All_logo_max.png")
-
-    vide_75_img = PhotoImage(file="Ressources/Vide_75.png")
 
     date_img = PhotoImage(file="Ressources/Date_logo.png")
     date_img_max = PhotoImage(file="Ressources/Date_logo_max.png")
@@ -118,6 +115,8 @@ class CDT:
     can_nav_icon = 50
     xy_icon_nav = 25
 
+    width_entry_path = 60
+
     # _____________________________________________ MARGE _____________________________________________ #
 
     title_marge = 10
@@ -147,9 +146,8 @@ class CDT:
     '\n',
     '_______________________________________________',
     'Utilisation:',
-    '1. Indiquez le chemin du dossier contenant les fichiers à renommer',
-    '>>> Méthode 1 : Localisez ce dossier sur votre machine puis copiez/collez le chemin ici',
-    '>>> Méthode 2 : Utilisez l\'explorateur de fichiers en cliquant sur le logo \"Dossier + Loupe\"',
+    '1. Indiquez le chemin du dossier contenant les fichiers à renommer :',
+    '>>> Utilisez l\'explorateur de fichiers en cliquant sur le logo \"Dossier + Loupe\"',
     '\n',
     '2. Sélectionnez le mode de recherche de fichiers',
     '>>> Soit par extension (tous les fichiers avec l\'extension renseigné seront renommés)',
@@ -179,9 +177,8 @@ class CDT:
     '\n',
     '_______________________________________________',
     'Utilisation :',
-    '1. Indiquez le chemin du répertoire contenant les sous-dossiers à extraire',
-    '>>> Méthode 1 : Localisez ce dossier sur votre machine puis copiez/collez le chemin ici',
-    '>>> Méthode 2 : Utilisez l\'explorateur de fichiers en cliquant sur le logo "Dossier + Loupe"',
+    '1. Indiquez le chemin du dossier contenant les fichiers à renommer :',
+    '>>> Utilisez l\'explorateur de fichiers en cliquant sur le logo \"Dossier + Loupe\"',
     '\n',
     '2. Indiquez le degré d\'extraction' ,
     '>>> C\'est lui qui indique combien de fois le programme s\'éxecute',
@@ -215,23 +212,22 @@ class CDT:
     '\n',
     '_______________________________________________',
     'Utilisation :',
-    '1. Indiquez le chemin du répertoire contenant les fichiers à trier',
-    '>>> Méthode 1 : Localisez ce dossier sur votre machine puis copiez/collez le chemin ici',
-    '>>> Méthode 2 : Utilisez l\'explorateur de fichiers en cliquant sur le logo "Dossier + Loupe"',
+    '1. Indiquez le chemin du dossier contenant les fichiers à renommer :',
+    '>>> Utilisez l\'explorateur de fichiers en cliquant sur le logo \"Dossier + Loupe\"',
     '\n',
     '_______________________________________________',
     'Détails des paramètres :',
     '\n',
-    'Extension :', #_______________________________ EXT
+    '1. Extension :', #_______________________________ EXT
     'Regroupe les fichiers par extension', 
     'Exemple :', 
     '>>> 1 sous-dossier pour les .jpg', 
     '>>> 1 autre sous-dossier pour les .avi',
     '\n',
-    'Nom :', #_______________________________ NOM
+    '2. Nom :', #_______________________________ NOM
     'Range les fichiers portant le nom recherché dans un sous-dossier',
     '\n',
-    'Date :', #_______________________________ DATE
+    '3. Date :', #_______________________________ DATE
     'Récupère la date de création dans les méta-données du fichier',
     'Regroupe les fichiers par date de création ou à défaut par date de modification',
     'La sensibilitée du tri est paramètrable :',
@@ -239,21 +235,21 @@ class CDT:
     '>>> Par mois',
     '>>> Par jour',
     '\n',
-    'Extension + Nom :', #_______________________________ EXT + NOM
+    '4. Extension + Nom :', #_______________________________ EXT + NOM
     'Regroupe uniquement les fichiers portant le nom recherché par extension',
     '\n',
-    'Extension + Date :', #_______________________________ EXT + DATE
+    '5. Extension + Date :', #_______________________________ EXT + DATE
     'Regroupe les fichiers par date en créant un sous-dossier pour chaque extension',
     'Exemple :', 
     '>>> 1 sous-dossier pour les .mp4 de 2016', 
     '>>> 1 autre sous-dossier pour les .jpg de 2016',
     '\n',
-    'Extension + Nom + Date :', #_______________________________ EXT + NOM + DATE
+    '6. Nom + Date :',
+    'Regroupe uniquement les fichiers portant le nom recherché par date',
+    '\n',
+    '7. Extension + Nom + Date :', #_______________________________ EXT + NOM + DATE
     'Regroupe uniquement les fichiers portant le nom recherché par date en créant', 
     'un sous-dossier pour chaque extension',
-    '\n',
-    'Nom + Date :',
-    'Regroupe uniquement les fichiers portant le nom recherché par date',
     ]
 
     # _____________________________________________ MENU_CONFIRMATION _____________________________________________ #
